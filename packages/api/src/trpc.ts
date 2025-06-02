@@ -56,28 +56,34 @@ export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
   });
 });
 
+export const accountsProcedure = protectedProcedure.use(
+  async ({ ctx, next }) => {
+    const accounts = await getAllAccounts(ctx.user, ctx.headers);
+
+    return next({
+      ctx: {
+        ...ctx,
+        accounts,
+      },
+    });
+  },
+);
+
 export const calendarProcedure = protectedProcedure.use(
   async ({ ctx, next }) => {
-    try {
-      const allAccounts = await getAllAccounts(ctx.user, ctx.headers);
+    const accounts = await getAllAccounts(ctx.user, ctx.headers);
 
-      const allCalendarClients = allAccounts.map((account) => ({
-        account,
-        client: accountToProvider(account),
-      }));
+    const providers = accounts.map((account) => ({
+      account,
+      client: accountToProvider(account),
+    }));
 
-      return next({
-        ctx: {
-          // Multiple provider access (for listing all calendars/events)
-          allCalendarClients,
-          allAccounts,
-        },
-      });
-    } catch (error) {
-      throw new TRPCError({
-        code: "PRECONDITION_FAILED",
-        message: error instanceof Error ? error.message : "Unknown error",
-      });
-    }
+    return next({
+      ctx: {
+        ...ctx,
+        providers,
+        accounts,
+      },
+    });
   },
 );

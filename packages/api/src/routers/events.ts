@@ -15,21 +15,14 @@ export const eventsRouter = createTRPCRouter({
     )
     .query(async ({ ctx, input }) => {
       const allEvents = await Promise.all(
-        ctx.allCalendarClients.map(async ({ client, account }) => {
+        ctx.providers.map(async ({ client, account }) => {
           let calendarIds = input.calendarIds;
 
           if (calendarIds.length === 0) {
             try {
               const calendars = await client.calendars();
-              // we will filter out calendars in future with custom filters
-              // for all of the providers
-              calendarIds = calendars
-                // .filter(
-                //   (cal) =>
-                //     cal.primary || cal.id?.includes("@group.calendar.google.com"),
-                // )
-                .map((cal) => cal.id)
-                .filter(Boolean);
+
+              calendarIds = calendars.map((cal) => cal.id).filter(Boolean);
             } catch (error) {
               console.error(
                 `Failed to fetch calendars for provider ${account.providerId}:`,
@@ -94,23 +87,20 @@ export const eventsRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const calendarClient = ctx.allCalendarClients.find(
-        ({ account }) => account.accountId === input.accountId,
+      const { accountId, calendarId, ...data } = input;
+
+      const provider = ctx.providers.find(
+        ({ account }) => account.accountId === accountId,
       );
 
-      if (!calendarClient) {
+      if (!provider) {
         throw new TRPCError({
           code: "NOT_FOUND",
-          message: `Calendar client not found for accountId: ${input.accountId}`,
+          message: `Calendar client not found for accountId: ${accountId}`,
         });
       }
 
-      const { accountId, ...eventData } = input;
-
-      const event = await calendarClient.client.createEvent(
-        eventData.calendarId,
-        eventData,
-      );
+      const event = await provider.client.createEvent(calendarId, data);
 
       return { event };
     }),
@@ -131,23 +121,23 @@ export const eventsRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const calendarClient = ctx.allCalendarClients.find(
-        ({ account }) => account.accountId === input.accountId,
+      const { accountId, calendarId, eventId, ...data } = input;
+
+      const provider = ctx.providers.find(
+        ({ account }) => account.accountId === accountId,
       );
 
-      if (!calendarClient?.client) {
+      if (!provider?.client) {
         throw new TRPCError({
           code: "NOT_FOUND",
-          message: `Calendar client not found for accountId: ${input.accountId}`,
+          message: `Calendar client not found for accountId: ${accountId}`,
         });
       }
 
-      const { accountId, calendarId, eventId, ...updateData } = input;
-
-      const event = await calendarClient.client.updateEvent(
+      const event = await provider.client.updateEvent(
         calendarId,
         eventId,
-        updateData,
+        data,
       );
 
       return { event };
@@ -162,18 +152,19 @@ export const eventsRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const calendarClient = ctx.allCalendarClients.find(
+      const provider = ctx.providers.find(
         ({ account }) => account.accountId === input.accountId,
       );
 
-      if (!calendarClient?.client) {
+      if (!provider?.client) {
         throw new TRPCError({
           code: "NOT_FOUND",
           message: `Calendar client not found for accountId: ${input.accountId}`,
         });
       }
 
-      await calendarClient.client.deleteEvent(input.calendarId, input.eventId);
+      await provider.client.deleteEvent(input.calendarId, input.eventId);
+
       return { success: true };
     }),
 });

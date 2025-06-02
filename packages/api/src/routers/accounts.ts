@@ -6,7 +6,7 @@ import { auth } from "@repo/auth/server";
 import { user } from "@repo/db/schema";
 
 import { createTRPCRouter, protectedProcedure } from "../trpc";
-import { getActiveAccount, getAllAccounts } from "../utils/accounts";
+import { getAllAccounts, getDefaultAccount } from "../utils/accounts";
 
 export const accountsRouter = createTRPCRouter({
   list: protectedProcedure.query(async ({ ctx }) => {
@@ -20,11 +20,11 @@ export const accountsRouter = createTRPCRouter({
   setDefault: protectedProcedure
     .input(z.object({ accountId: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      const foundAccount = await ctx.db.query.account.findFirst({
+      const account = await ctx.db.query.account.findFirst({
         where: (table, { eq }) => eq(table.accountId, input.accountId),
       });
 
-      if (!foundAccount) {
+      if (!account) {
         throw new TRPCError({
           code: "NOT_FOUND",
           message: "Account not found",
@@ -38,7 +38,8 @@ export const accountsRouter = createTRPCRouter({
     }),
 
   getDefault: protectedProcedure.query(async ({ ctx }) => {
-    const account = await getActiveAccount(ctx.user, ctx.headers);
+    const account = await getDefaultAccount(ctx.user, ctx.headers);
+
     return { account };
   }),
 
@@ -58,12 +59,15 @@ export const accountsRouter = createTRPCRouter({
         headers: ctx.headers,
       });
 
-      const activeAccount = await getActiveAccount(ctx.user, ctx.headers);
-      if (activeAccount.accountId === input.accountId) {
-        await ctx.db
-          .update(user)
-          .set({ defaultAccountId: null })
-          .where(eq(user.id, ctx.user.id));
+      const activeAccount = await getDefaultAccount(ctx.user, ctx.headers);
+
+      if (activeAccount.accountId !== input.accountId) {
+        return;
       }
+
+      await ctx.db
+        .update(user)
+        .set({ defaultAccountId: null })
+        .where(eq(user.id, ctx.user.id));
     }),
 });

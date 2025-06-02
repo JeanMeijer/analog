@@ -2,10 +2,10 @@ import "server-only";
 import { auth, type Session } from "@repo/auth/server";
 import { db } from "@repo/db";
 
-export const getActiveAccount = async (
+export async function getDefaultAccount(
   user: Session["user"],
   headers: Headers,
-) => {
+) {
   if (user?.defaultAccountId) {
     const activeAccount = await db.query.account.findFirst({
       where: (table, { eq, and }) =>
@@ -41,12 +41,9 @@ export const getActiveAccount = async (
   }
 
   return firstAccount;
-};
+}
 
-export const getAllAccounts = async (
-  user: Session["user"],
-  headers: Headers,
-) => {
+export async function getAllAccounts(user: Session["user"], headers: Headers) {
   const _accounts = await db.query.account.findMany({
     where: (table, { eq }) => eq(table.userId, user.id),
   });
@@ -76,4 +73,4 @@ export const getAllAccounts = async (
   return accounts.filter(
     (account) => account.accessToken && account.refreshToken,
   );
-};
+}
