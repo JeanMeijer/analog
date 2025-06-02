@@ -4,124 +4,124 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: var(--color-white);
-  --foreground: var(--color-neutral-950);
-  --card: var(--color-white);
-  --card-foreground: var(--color-neutral-950);
-  --popover: var(--color-white);
-  --popover-foreground: var(--color-neutral-950);
-  --primary: var(--color-neutral-900);
-  --primary-foreground: var(--color-neutral-50);
-  --secondary: var(--color-neutral-100);
-  --secondary-foreground: var(--color-neutral-900);
-  --muted: var(--color-neutral-100);
-  --muted-foreground: var(--color-neutral-500);
-  --accent: var(--color-neutral-100);
-  --accent-foreground: var(--color-neutral-900);
-  --destructive: var(--color-red-600);
-  --destructive-foreground: var(--color-red-600);
-  --border: var(--color-neutral-200);
-  --input: var(--color-neutral-200);
-  --ring: var(--color-neutral-400);
-  --chart-1: var(--color-orange-600);
-  --chart-2: var(--color-teal-600);
-  --chart-3: var(--color-cyan-900);
-  --chart-4: var(--color-amber-400);
-  --chart-5: var(--color-amber-500);
-  --radius: 0.625rem;
-  --sidebar: var(--color-neutral-50);
-  --sidebar-foreground: var(--color-neutral-950);
-  --sidebar-primary: var(--color-neutral-900);
-  --sidebar-primary-foreground: var(--color-neutral-50);
-  --sidebar-accent: var(--color-neutral-100);
-  --sidebar-accent-foreground: var(--color-neutral-900);
-  --sidebar-border: var(--color-neutral-200);
-  --sidebar-ring: var(--color-neutral-400);
+  /* Main BG */
+  --background-color-main: var(--color-neutral-50);
+  --background-color-main-subtle: var(--color-neutral-100);
+
+  /* Neutral colors */
+  --background-color-neutral: var(--color-white);
+  --background-color-neutral-weak: var(--color-neutral-50);
+  --background-color-neutral-subtle: var(--color-neutral-100);
+  --background-color-neutral-strong: var(--color-neutral-200);
+  --background-color-neutral-inverse: var(--color-neutral-900);
+
+  --text-color-neutral: var(--color-neutral-700);
+  --text-color-neutral-subtle: var(--color-neutral-500);
+  --text-color-neutral-weak: var(--color-neutral-400);
+  --text-color-neutral-inverse: var(--color-white);
+  --text-color-neutral-inverse-subtle: var(--color-neutral-300);
+
+  --border-color-neutral: var(--color-neutral-200);
+  --border-color-neutral-subtle: var(--color-neutral-100);
+  --border-color-neutral-strong: var(--color-neutral-950);
+
+  --ring-color-neutral: var(--color-neutral-200);
+  --ring-color-neutral-subtle: var(--color-neutral-100);
+  --ring-color-neutral-strong: var(--color-neutral-950);
+
+  /* Accent colors */
+  --background-color-accent: var(--color-red-500);
+  --background-color-accent-subtle: var(--color-red-200);
+
+  --text-color-accent: var(--color-red-500);
+
+  /* Calendar specific colors */
+  --background-color-cal-weekend: var(--color-neutral-100);
+  --background-color-cal-border: rgba(0, 0, 0, 0.04);
 }
 
 .dark {
-  --background: var(--color-neutral-900);
-  --foreground: var(--color-neutral-50);
-  --card: var(--color-neutral-950);
-  --card-foreground: var(--color-neutral-50);
-  --popover: var(--color-neutral-950);
-  --popover-foreground: var(--color-neutral-50);
-  --primary: var(--color-neutral-50);
-  --primary-foreground: var(--color-neutral-900);
-  --secondary: var(--color-neutral-800);
-  --secondary-foreground: var(--color-neutral-50);
-  --muted: var(--color-neutral-800);
-  --muted-foreground: var(--color-neutral-400);
-  --accent: var(--color-neutral-800);
-  --accent-foreground: var(--color-neutral-50);
-  --destructive: var(--color-red-900);
-  --destructive-foreground: var(--color-red-500);
-  --border: var(--color-neutral-800);
-  --input: var(--color-neutral-800);
-  --ring: var(--color-neutral-600);
-  --chart-1: var(--color-blue-700);
-  --chart-2: var(--color-emerald-500);
-  --chart-3: var(--color-amber-500);
-  --chart-4: var(--color-purple-500);
-  --chart-5: var(--color-rose-500);
-  --sidebar: #262626;
-  --sidebar-foreground: var(--color-neutral-50);
-  --sidebar-primary: var(--color-blue-500);
-  --sidebar-primary-foreground: var(--color-neutral-50);
-  --sidebar-accent: var(--color-neutral-800);
-  --sidebar-accent-foreground: var(--color-neutral-50);
-  --sidebar-border: var(--color-neutral-800);
-  --sidebar-ring: var(--color-neutral-600);
+  /* Main BG */
+  --background-color-main: var(--color-neutral-900);
+  --background-color-main-subtle: var(--color-neutral-800);
+
+  /* Neutral colors */
+  --background-color-neutral: var(--color-neutral-800);
+  --background-color-neutral-weak: var(--color-neutral-900);
+  --background-color-neutral-subtle: var(--color-neutral-800);
+  --background-color-neutral-strong: var(--color-neutral-700);
+  --background-color-neutral-inverse: var(--color-neutral-200);
+
+  --text-color-neutral: var(--color-neutral-300);
+  --text-color-neutral-subtle: var(--color-neutral-400);
+  --text-color-neutral-weak: var(--color-neutral-500);
+  --text-color-neutral-inverse: var(--color-black);
+  --text-color-neutral-inverse-subtle: var(--color-neutral-700);
+
+  --border-color-neutral: var(--color-neutral-800);
+  --border-color-neutral-subtle: var(--color-neutral-900);
+  --border-color-neutral-strong: var(--color-neutral-50);
+
+  --ring-color-neutral: var(--color-neutral-800);
+  --ring-color-neutral-subtle: var(--color-neutral-900);
+  --ring-color-neutral-strong: var(--color-neutral-50);
+
+  /* Accent colors */
+  --background-color-accent: var(--color-red-500);
+  --background-color-accent-subtle: var(--color-red-900);
+  --text-color-accent: var(--color-red-500);
+
+  /* Calendar specific colors */
+  --background-color-cal-weekend: rgba(0, 0, 0, 0.35);
+  --background-color-cal-border: rgba(255, 255, 255, 0.04);
 }
 
 @theme inline {
   --font-satoshi: var(--font-satoshi);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Main BG */
+  --background-color-main: var(--background-color-main);
+  --background-color-main-subtle: var(--background-color-main-subtle);
+
+  /* Neutral colors */
+  --background-color-neutral: var(--background-color-neutral);
+  --background-color-neutral-weak: var(--background-color-neutral-weak);
+  --background-color-neutral-subtle: var(--background-color-neutral-subtle);
+  --background-color-neutral-strong: var(--background-color-neutral-strong);
+  --background-color-neutral-inverse: var(--background-color-neutral-inverse);
+
+  --text-color-neutral: var(--text-color-neutral);
+  --text-color-neutral-subtle: var(--text-color-neutral-subtle);
+  --text-color-neutral-weak: var(--text-color-neutral-weak);
+  --text-color-neutral-inverse: var(--text-color-neutral-inverse);
+  --text-color-neutral-inverse-subtle: var(--text-color-neutral-inverse-subtle);
+
+  --border-color-neutral: var(--border-color-neutral);
+  --border-color-neutral-subtle: var(--border-color-neutral-subtle);
+  --border-color-neutral-strong: var(--border-color-neutral-strong);
+
+  --ring-color-neutral: var(--ring-color-neutral);
+  --ring-color-neutral-subtle: var(--ring-color-neutral-subtle);
+  --ring-color-neutral-strong: var(--ring-color-neutral-strong);
+
+  /* Accent colors */
+  --background-color-accent: var(--background-color-accent);
+  --background-color-accent-subtle: var(--background-color-accent-subtle);
+  --text-color-accent: var(--text-color-accent);
+
+  /* Calendar specific colors */
+  --background-color-cal-weekend: var(--background-color-cal-weekend);
+  --background-color-cal-border: var(--background-color-cal-border);
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-neutral;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-neutral text-neutral;
   }
 }
 
