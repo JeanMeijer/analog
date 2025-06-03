@@ -157,6 +157,6 @@ export class GoogleCalendarProvider implements CalendarProvider {
       status: googleEvent.status,
       htmlLink: googleEvent.htmlLink,
       color: googleEvent.colorId,
-    };
+    } as any;
   }
 }

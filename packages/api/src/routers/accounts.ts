@@ -59,9 +59,9 @@ export const accountsRouter = createTRPCRouter({
         headers: ctx.headers,
       });
 
-      const activeAccount = await getDefaultAccount(ctx.user, ctx.headers);
+      const defaultAccount = await getDefaultAccount(ctx.user, ctx.headers);
 
-      if (activeAccount.accountId !== input.accountId) {
+      if (defaultAccount.accountId !== input.accountId) {
         return;
       }
 

@@ -21,6 +21,9 @@ export interface CalendarEvent {
   status?: string;
   htmlLink?: string;
   color?: string;
+  calendarId: string;
+  providerId: "google" | "microsoft";
+  accountId: string;
 }
 
 export interface CalendarProvider {

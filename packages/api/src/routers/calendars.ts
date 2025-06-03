@@ -13,7 +13,7 @@ export const calendarsRouter = createTRPCRouter({
       };
     });
 
-    const results = await Promise.allSettled(promises);
+    const accounts = await Promise.all(promises);
 
     return {
       accounts,
