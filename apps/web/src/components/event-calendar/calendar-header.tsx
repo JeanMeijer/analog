@@ -51,6 +51,7 @@ export function CalendarHeader({ className }: CalendarHeaderProps) {
         <CalendarViewSelector currentView={view} onViewChange={setView} />
 
         <ViewPreferencesPopover />
+        {/* <NotificationPopover /> */}
       </div>
     </header>
   );
