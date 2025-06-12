@@ -24,23 +24,24 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTRPC } from "@/lib/trpc/client";
 
-export type CalendarItem = {
+export type TaskItem = {
   id: string;
-  providerId: string;
-  name: string;
-  primary: boolean | undefined;
-};
-
-function useCalendarList() {
-  const trpc = useTRPC();
-
-  const { data: accounts } = useQuery(trpc.tasks.list.queryOptions());
-
-  return useQuery(trpc.calendars.list.queryOptions());
+  title?: string;
+  categoryId?: string;
+  status?: string;
+  completed?: string;
+  notes?: string;
+  due?: string;
 }
 
-export function Calendars() {
-  const { data, isLoading } = useCalendarList();
+function useTaskList() {
+  const trpc = useTRPC();
+
+  return useQuery(trpc.tasks.list.queryOptions());
+}
+
+export function Tasks() {
+  const { data, isLoading } = useTaskList();
 
   if (isLoading) {
     return <CalendarsSkeleton />;
@@ -63,7 +64,7 @@ export function Calendars() {
               <CollapsibleContent>
                 <SidebarGroupContent>
                   <SidebarMenu>
-                    {account.calendars.map((item: CalendarItem) => (
+                    {account.tasks.map((item: TaskItem) => (
                       <ItemWithToggle key={item.id} item={item} />
                     ))}
                   </SidebarMenu>
@@ -133,7 +134,7 @@ function CalendarName({ name }: { name: string }) {
   );
 }
 
-function ItemWithToggle({ item }: { item: CalendarItem }) {
+function ItemWithToggle({ item }: { item: TaskItem }) {
   const [calendarsVisibility, setCalendarsVisibility] =
     useCalendarsVisibility();
   const textRef = useRef<HTMLSpanElement>(null);
@@ -165,7 +166,7 @@ function ItemWithToggle({ item }: { item: CalendarItem }) {
     align: "start" as const,
     sideOffset: 8,
     className: "bg-sidebar-accent text-sidebar-accent-foreground",
-    children: item.name,
+    children: item.title,
   };
 
   return (
@@ -184,7 +185,7 @@ function ItemWithToggle({ item }: { item: CalendarItem }) {
             }}
           />
           <span ref={textRef} className="line-clamp-1 block select-none">
-            {item.name}
+            {item.title}
           </span>
         </div>
       </SidebarMenuButton>

@@ -1,6 +1,7 @@
 import * as React from "react";
 
-import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tasks } from "./tasks";
 import {
   Sidebar,
   SidebarContent,
@@ -15,9 +16,17 @@ export function RightSidebar({
     <Sidebar {...props}>
       <SidebarRail />
       <SidebarHeader>
-        <Input placeholder="Event name" />
       </SidebarHeader>
-      <SidebarContent></SidebarContent>
+      <SidebarContent>
+        <Tabs defaultValue="events" className="w-full">
+          <TabsList>
+            <TabsTrigger value="events">Events</TabsTrigger>
+            <TabsTrigger value="tasks">Task</TabsTrigger>
+          </TabsList>
+          <TabsContent value="events">Make changes to your events here.</TabsContent>
+          <TabsContent value="tasks"><Tasks/></TabsContent>
+        </Tabs>
+      </SidebarContent>
     </Sidebar>
   );
 }
